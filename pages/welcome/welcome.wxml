@@ -1,0 +1,11 @@
+<!-- wxml是编写小程序骨架页面的文件 -->
+<!-- div -->
+<view class="container">
+  <!-- 设计原型的时候，最好以i6的尺寸来设计，宽度750px，里面的元素以一比一转换为rpx -->
+  <image class="user-avatar" src="/images/avatar/1.png"></image>
+  <!-- 只有被text包围的文字，才能在手机上长按选中 -->
+  <text class="user-name"><text style="color: red">Hello</text>, 九月</text>
+  <view class="moto-container" bindtap="onTag">
+    <text class="moto">开启小程序之旅</text>
+  </view>
+</view>
