@@ -1,12 +1,12 @@
 <view class="post-detail-container">
   <view class="head">
-    <image class="head-image" src="{{postData.headImgSrc}}" />
+    <image class="head-image" src="{{!isPlayingMusic ? postData.headImgSrc : postData.music.coverImg}}" />
     <image catchtap="onMusicTap" class='audio' src="{{isPlayingMusic ? '/images/music/music-stop.png' : '/images/music/music-start.png'}}"></image>
   </view>
   <view class='author-date'>
     <image class='avatar' src="{{postData.avatar}}" />
     <text class='author'>{{postData.author}}</text>
-    <text class='const-text'>发表于</text>
+    <text class='const-text' id="hh">发表于</text>
     <text class='date'>{{postData.dataTime}}</text>
   </view>
   <text class='title'>{{postData.title}}</text>

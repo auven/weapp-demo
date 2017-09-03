@@ -1,4 +1,6 @@
 const postsData = require('../../../data/posts-data.js');
+const app = getApp();
+
 
 Page({
 
@@ -14,6 +16,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    const globalData = app.globalData;
     const postId = options.id;
     this.data.postId = postId;
     const postData = postsData.postList[postId];
@@ -29,9 +32,50 @@ Page({
       postsCollected[postId] = false;
       wx.setStorageSync('postsCollected', postsCollected);
     }
+    
+    if (app.globalData.g_isPlayingMusic && app.globalData.g_currentMusicPostId === this.data.postId) {
+      this.setData({
+        isPlayingMusic : true
+      })
+    }
 
-    wx.setStorageSync('key', '风暴');
+    this.setMusicMonitor();
   },
+
+  setMusicMonitor() {
+    const _this = this;
+    // 监听音乐是否启动
+    wx.onBackgroundAudioPlay(function () {
+      _this.setData({
+        isPlayingMusic: true
+      })
+      app.globalData.g_isPlayingMusic = true;
+      app.globalData.g_currentMusicPostId = _this.data.postId;
+    });
+
+    wx.onBackgroundAudioPause(function () {
+      _this.setData({
+        isPlayingMusic: false
+      })
+      app.globalData.g_isPlayingMusic = false;
+      app.globalData.g_currentMusicPostId = null;
+    });
+  },
+
+  // onReady() {
+  //   var query = wx.createSelectorQuery();
+  //   const hh = query.select('#hh');
+  //   hh.fields({
+  //     dataset: true,
+  //     size: true,
+  //     properties: ['scrollX', 'scrollY']
+  //   }, function (res) {
+  //     console.log(res);
+  //   })
+  //   console.log('hh', hh);
+  //   // const hh = document.querySelector('#hh');
+  //   // console.log(hh);
+  // },
 
   onCollectionTap(event) {
     var postsCollected = wx.getStorageSync('postsCollected');
@@ -97,6 +141,7 @@ Page({
     })
   },
 
+  // 播放音乐播放
   onMusicTap(event) {
     var postId = this.data.postId;
     const postData = postsData.postList[postId];
