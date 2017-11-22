@@ -16,6 +16,6 @@ Page({
 
   onTag(event) {
     console.log(event);
-    wx.redirectTo({url: '../posts/post'});
+    wx.switchTab({url: '../posts/post'});
   }
 })

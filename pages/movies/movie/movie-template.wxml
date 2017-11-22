@@ -1,0 +1,9 @@
+<import src="../stars/stars-template.wxml" />
+
+<template name="movieTemplate">
+  <view class="movie-container">
+    <image class="movie-img" src="http://img3.doubanio.com/view/photo/s_ratio_poster/public/p494268647.webp"></image>
+    <text class="movie-title">你的名字</text>
+    <template is="starsTemplate" />
+  </view>
+</template>
